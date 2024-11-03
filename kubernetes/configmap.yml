@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: contacts-configmap
+  labels:
+    app: contacts-configmap
+data: 
+  MASS_TRANSIT_DELETE_QUEUE_NAME: contact-delete-queue
+  MASS_TRANSIT_INSERT_QUEUE_NAME: contact-insert-queue
+  MASS_TRANSIT_UPDATE_QUEUE_NAME: contact-update-queue
+  MASS_TRANSIT_HOST: rabbitmq-mass-transit
+  MASS_TRANSIT_PORT: "5672"
