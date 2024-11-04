@@ -20,14 +20,29 @@ spec:
         cpu: "0.5"
     env:
     - name: POSTGRES_USER
-      secretKeyRef:
-        name: contacts-secret
-        key: POSTGRES_USER
+      valueFrom:
+        secretKeyRef:
+          name: contacts-secret
+          key: POSTGRES_USER
     - name: POSTGRES_PASSWORD
-      secretKeyRef:
-        name: contacts-api-secret
-        key: POSTGRES_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: contacts-secret
+          key: POSTGRES_PASSWORD
     - name: POSTGRES_DB
-      secretKeyRef:
-        name: contacts-api-secret
-        key: POSTGRES_DB
+      valueFrom:
+        secretKeyRef:
+          name: contacts-secret
+          key: POSTGRES_DB
+    volumeMounts:
+    - name: postgres-storage
+      mountPath: /var/lib/postgresql/data
+    - name: postgres-initdb
+      mountPath: /docker-entrypoint-initdb.d/
+  volumes:
+  - name: postgres-storage
+    persistentVolumeClaim:
+      claimName: pvc-postgres
+  - name: postgres-initdb
+    configMap:
+      name: configmap-init-db

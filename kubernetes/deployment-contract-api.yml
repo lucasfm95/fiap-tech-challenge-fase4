@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: contacts-api
-        image: lucasfm95/fiap-tech-challenge-fase3:latest
+        image: lucasfm95/fiap-tech-challenge-fase2:latest
         ports:
         - containerPort: 80
           protocol: TCP
@@ -29,34 +29,42 @@ spec:
             cpu: "0.25"
         env:
         - name: CONNECTION_STRING_DB_POSTGRES
-          secretKeyRef:
-            name: contacts-secret
-            key: CONNECTION_STRING_DB_POSTGRES
+          valueFrom:
+            secretKeyRef:
+              name: contacts-secret
+              key: CONNECTION_STRING_DB_POSTGRES
         - name: MASS_TRANSIT_USERNAME
-          secretKeyRef:
-            name: contacts-secret
-            key: MASS_TRANSIT_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: contacts-secret
+              key: MASS_TRANSIT_USERNAME
         - name: MASS_TRANSIT_PASSWORD
-          secretKeyRef:
-            name: contacts-secret
-            key: MASS_TRANSIT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: contacts-secret
+              key: MASS_TRANSIT_PASSWORD
         - name: MASS_TRANSIT_DELETE_QUEUE_NAME
-          configMapKeyRef:
-            name: contacts-configmap
-            key: MASS_TRANSIT_DELETE_QUEUE_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: contacts-configmap
+              key: MASS_TRANSIT_DELETE_QUEUE_NAME
         - name: MASS_TRANSIT_INSERT_QUEUE_NAME
-          configMapKeyRef:
-            name: contacts-configmap
-            key: MASS_TRANSIT_INSERT_QUEUE_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: contacts-configmap
+              key: MASS_TRANSIT_INSERT_QUEUE_NAME
         - name: MASS_TRANSIT_UPDATE_QUEUE_NAME
-          configMapKeyRef:
-            name: contacts-configmap
-            key: MASS_TRANSIT_UPDATE_QUEUE_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: contacts-configmap
+              key: MASS_TRANSIT_UPDATE_QUEUE_NAME
         - name: MASS_TRANSIT_HOST
-          configMapKeyRef:
-            name: contacts-configmap
-            key: MASS_TRANSIT_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: contacts-configmap
+              key: MASS_TRANSIT_HOST
         - name: MASS_TRANSIT_PORT
-          configMapKeyRef:
-            name: contacts-configmap
-            key: MASS_TRANSIT_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: contacts-configmap
+              key: MASS_TRANSIT_PORT
