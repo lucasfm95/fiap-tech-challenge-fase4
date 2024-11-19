@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: contact-insert-consumer-worker
+  labels:
+    app: contact-insert-consumer-worker
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: contact-insert-consumer-worker
+  template:
+    metadata:
+      labels:
+        app: contact-insert-consumer-worker
+    spec:
+      containers:
+        - name: contact-insert-consumer-worker
+          image: lucasfm95/fiap-tech-challenge-insert-fase3:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
+              protocol: TCP
+          resources:
+            limits:
+              memory: "256Mi"
+              cpu: "0.5"
+            requests:
+              memory: "128Mi"
+              cpu: "0.25"
+          env:
+            - name: CONNECTION_STRING_DB_POSTGRES
+              valueFrom:
+                secretKeyRef:
+                  name: contacts-secret
+                  key: CONNECTION_STRING_DB_POSTGRES
+            - name: MASS_TRANSIT_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: contacts-secret
+                  key: MASS_TRANSIT_USERNAME
+            - name: MASS_TRANSIT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: contacts-secret
+                  key: MASS_TRANSIT_PASSWORD
+            - name: MASS_TRANSIT_INSERT_QUEUE_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: contacts-configmap
+                  key: MASS_TRANSIT_INSERT_QUEUE_NAME
+            - name: MASS_TRANSIT_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: contacts-configmap
+                  key: MASS_TRANSIT_HOST
+            - name: MASS_TRANSIT_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: contacts-configmap
+                  key: MASS_TRANSIT_PORT
+
+  
