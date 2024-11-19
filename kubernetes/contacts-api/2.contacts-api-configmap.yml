@@ -2,6 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: contacts-configmap
+  namespace: contacts-api-cluster
   labels:
     app: contacts-configmap
 data: 

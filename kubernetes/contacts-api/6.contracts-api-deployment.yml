@@ -1,7 +1,8 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: contacts-api
+  name: contacts-api-deployment
+  namespace: contacts-api-cluster
   labels:
     app: contacts-api
 spec:
@@ -31,17 +32,17 @@ spec:
         - name: CONNECTION_STRING_DB_POSTGRES
           valueFrom:
             secretKeyRef:
-              name: contacts-secret
+              name: contacts-api-secret
               key: CONNECTION_STRING_DB_POSTGRES
         - name: MASS_TRANSIT_USERNAME
           valueFrom:
             secretKeyRef:
-              name: contacts-secret
+              name: contacts-api-secret
               key: MASS_TRANSIT_USERNAME
         - name: MASS_TRANSIT_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: contacts-secret
+              name: contacts-api-secret
               key: MASS_TRANSIT_PASSWORD
         - name: MASS_TRANSIT_DELETE_QUEUE_NAME
           valueFrom:
