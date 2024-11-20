@@ -14,4 +14,4 @@ spec:
       storage: 500Mi
   selector:
     matchLabels:
-      type: pv-contacts
+      type: postgres-pv
