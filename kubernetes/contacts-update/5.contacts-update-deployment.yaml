@@ -43,11 +43,11 @@ spec:
                 secretKeyRef:
                   name: contacts-update-secret
                   key: MASS_TRANSIT_PASSWORD
-            - name: MASS_TRANSIT_DELETE_QUEUE_NAME
+            - name: MASS_TRANSIT_UPDATE_QUEUE_NAME
               valueFrom:
                 configMapKeyRef:
                   name: contacts-update-configmap
-                  key: MASS_TRANSIT_DELETE_QUEUE_NAME
+                  key: MASS_TRANSIT_UPDATE_QUEUE_NAME
             - name: MASS_TRANSIT_HOST
               valueFrom:
                 configMapKeyRef:
