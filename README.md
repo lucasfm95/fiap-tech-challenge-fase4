@@ -94,6 +94,11 @@ The project is organized into several directories, each containing Kubernetes co
     kubectl apply -f . --recursive
     ```
 
+2. Delete all resources
+    ```sh
+    kubectl delete -f . --recursive
+    ```
+
 ### Deployment by config files
 
 1. Apply the namespaces:
