@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: contact-update-consumer-worker
+  namespace: contacts-update-cluster
+spec:
+  selector:
+    app: contact-update-consumer-worker
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: ClusterIP

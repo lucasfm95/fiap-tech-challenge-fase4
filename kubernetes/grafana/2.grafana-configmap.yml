@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-config
+  namespace: grafana-cluster
+data:
+  grafana.ini: |
+    [server]
+    # Porta padrão do Grafana
+    http_port = 3000
+
+    [security]
+    # Desativar a criação de novos usuários
+    disable_sign_up = true

@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: contacts-insert-configmap
+  namespace: contacts-insert-cluster
+  labels:
+    app: contacts-insert-configmap
+data: 
+  MASS_TRANSIT_INSERT_QUEUE_NAME: contact-insert-queue
+  MASS_TRANSIT_HOST: rabbitmq.rabbitmq-cluster.svc.cluster.local
+  MASS_TRANSIT_PORT: "5672"

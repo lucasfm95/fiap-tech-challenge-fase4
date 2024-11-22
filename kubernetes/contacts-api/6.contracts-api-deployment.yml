@@ -1,0 +1,71 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: contacts-api-deployment
+  namespace: contacts-api-cluster
+  labels:
+    app: contacts-api
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: contacts-api
+  template:
+    metadata:
+      labels:
+        app: contacts-api
+    spec:
+      containers:
+      - name: contacts-api
+        image: lucasfm95/fiap-tech-challenge-fase3:latest
+        ports:
+        - containerPort: 80
+          protocol: TCP
+        resources:
+          limits:
+            memory: "256Mi"
+            cpu: "0.5"
+          requests:
+            memory: "128Mi"
+            cpu: "0.25"
+        env:
+        - name: CONNECTION_STRING_DB_POSTGRES
+          valueFrom:
+            secretKeyRef:
+              name: contacts-api-secret
+              key: CONNECTION_STRING_DB_POSTGRES
+        - name: MASS_TRANSIT_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: contacts-api-secret
+              key: MASS_TRANSIT_USERNAME
+        - name: MASS_TRANSIT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: contacts-api-secret
+              key: MASS_TRANSIT_PASSWORD
+        - name: MASS_TRANSIT_DELETE_QUEUE_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: contacts-configmap
+              key: MASS_TRANSIT_DELETE_QUEUE_NAME
+        - name: MASS_TRANSIT_INSERT_QUEUE_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: contacts-configmap
+              key: MASS_TRANSIT_INSERT_QUEUE_NAME
+        - name: MASS_TRANSIT_UPDATE_QUEUE_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: contacts-configmap
+              key: MASS_TRANSIT_UPDATE_QUEUE_NAME
+        - name: MASS_TRANSIT_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: contacts-configmap
+              key: MASS_TRANSIT_HOST
+        - name: MASS_TRANSIT_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: contacts-configmap
+              key: MASS_TRANSIT_PORT

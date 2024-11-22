@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: contacts-update-configmap
+  namespace: contacts-update-cluster
+  labels:
+    app: contacts-update-configmap
+data: 
+  MASS_TRANSIT_UPDATE_QUEUE_NAME: contact-update-queue
+  MASS_TRANSIT_HOST: rabbitmq.rabbitmq-cluster.svc.cluster.local
+  MASS_TRANSIT_PORT: "5672"
