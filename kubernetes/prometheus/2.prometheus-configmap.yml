@@ -16,19 +16,19 @@ data:
       - job_name: 'contacts-api'
         metrics_path: /metrics
         static_configs:        
-          - targets: ['contacts-api:80']
+          - targets: ['contacts-api.contacts-api-cluster.svc.cluster.local:80']
         
       - job_name: 'contact-delete-consumer'
         metrics_path: /metrics
         static_configs:
-          - targets: [ 'contact-delete-consumer-worker:80' ]
+          - targets: [ 'contact-delete-consumer-worker.contacts-delete-cluster.svc.cluster.local:80' ]
         
       - job_name: 'contact-insert-consumer'
         metrics_path: /metrics
         static_configs:
-          - targets: [ 'contact-insert-consumer-worker:80' ]
+          - targets: [ 'contact-insert-consumer-worker.contacts-insert-cluster.svc.cluster.local:80' ]
         
       - job_name: 'contact-update-consumer'
         metrics_path: /metrics
         static_configs:
-          - targets: [ 'contact-update-consumer-worker:80' ]
+          - targets: [ 'contact-update-consumer-worker.contacts-update-cluster.svc.cluster.local:80' ]
