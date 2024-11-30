@@ -1,0 +1,29 @@
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+ name: contacts-api-scale
+ namespace: contacts-api-cluster
+spec:
+ scaleTargetRef:
+   kind: Deployment
+   name: contacts-api-deployment
+ minReplicaCount: 1
+ maxReplicaCount: 10
+ cooldownPeriod: 10
+ pollingInterval: 1
+ advanced:
+    horizontalPodAutoscalerConfig:                          
+      behavior:                                             
+        scaleDown:
+          stabilizationWindowSeconds: 60                    # Depois de 60 segundos que os pods se estabilizaram e não teve mais metrica acima do esperado, vai começar o scaledown
+          policies:
+          - type: Pods                                   #Vai deletar 1 pod a cada 5 segundos(mais o menos)
+            value: 1
+            periodSeconds: 5
+ triggers:
+ - type: prometheus
+   metadata:
+     serverAddress: http://prometheus-server.prometheus-cluster.svc.cluster.local:9090
+     query: |
+       sum(rate(http_requests_received_total{instance="contacts-api.contacts-api-cluster.svc.cluster.local:80"}[15s]))
+     threshold: "1.0"
