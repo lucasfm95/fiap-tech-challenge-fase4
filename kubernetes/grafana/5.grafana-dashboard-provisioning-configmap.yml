@@ -13,4 +13,4 @@ data:
         orgId: 1
         type: file
         options:
-          path: /etc/grafana/provisioning/dashboards
+          path: /var/lib/grafana/dashboards
