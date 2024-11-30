@@ -8,7 +8,6 @@ data:
     [server]
     # Porta padrão do Grafana
     http_port = 3000
-
     [security]
     # Desativar a criação de novos usuários
     disable_sign_up = true
