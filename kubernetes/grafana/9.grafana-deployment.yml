@@ -45,10 +45,13 @@ spec:
             - name: grafana-config
               mountPath: /etc/grafana/grafana.ini
               subPath: grafana.ini
-            - name: grafana-dashboards
+            - name: grafana-provisioning-datasources
+              mountPath: /etc/grafana/provisioning/datasources
+            - name: grafana-dashboard-provisioning
+              mountPath: /etc/grafana/provisioning/dashboards
+            - name: grafana-dashboards-files
               mountPath: /var/lib/grafana/dashboards
-            - name: grafana-provisioning
-              mountPath: /etc/grafana/provisioning
+
       volumes:
         - name: grafana-storage
           persistentVolumeClaim:
@@ -56,10 +59,13 @@ spec:
         - name: grafana-config
           configMap:
             name: grafana-config
-        - name: grafana-dashboards
+        - name:  grafana-provisioning-datasources
           configMap:
-            name: grafana-dashboards
-        - name: grafana-provisioning
+            name:  grafana-provisioning-datasources
+        - name: grafana-dashboard-provisioning
           configMap:
-            name: grafana-provisioning
+            name: grafana-dashboard-provisioning
+        - name: grafana-dashboards-files
+          configMap:
+            name: grafana-dashboards-files
       restartPolicy: Always
