@@ -86,6 +86,15 @@ The project is organized into several directories, each containing Kubernetes co
 
 - Kubernetes cluster
 - kubectl configured to interact with your cluster
+- helm
+### Before apply the yamls, configure KEDA for auto scale work
+1. install helm
+2. instal keda via helm on cluster
+    * `helm repo add kedacore https://kedacore.github.io/charts`
+    * `helm repo update`
+    * `helm install keda kedacore/keda --namespace keda --create-namespace`
+
+obs: it take 7-10 minuts until keda pods are up and ready
 
 ### Deployment using all files once
 
@@ -163,6 +172,10 @@ The project is organized into several directories, each containing Kubernetes co
     kubectl apply -f kubernetes/rabbitmq/6.rmq-hpa.yml
     ```
 
+## To test auto scale
+1. Install k6
+2. Configure http address in load-test.js file
+3. run `k6 run load-test.js`
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
