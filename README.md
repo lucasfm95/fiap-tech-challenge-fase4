@@ -88,13 +88,15 @@ The project is organized into several directories, each containing Kubernetes co
 - kubectl configured to interact with your cluster
 - helm
 ### Before apply the yamls, configure KEDA for auto scale work
+#### Via helm
 1. install helm
 2. instal keda via helm on cluster
     * `helm repo add kedacore https://kedacore.github.io/charts`
     * `helm repo update`
     * `helm install keda kedacore/keda --namespace keda --create-namespace`
-
-obs: it take 7-10 minuts until keda pods are up and ready
+    * obs: it take 7-10 minuts until keda pods are up and ready
+#### Via yaml
+2. run the command `kubectl apply --server-side -f https://github.com/kedacore/keda/releases/download/v2.16.0/keda-2.16.0.yaml`
 
 ### Deployment using all files once
 
